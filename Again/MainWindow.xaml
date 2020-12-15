@@ -1,0 +1,47 @@
+﻿<Window x:Class="Again.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Model="clr-namespace:Again.Model" 
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:again="clr-namespace:Again"
+        mc:Ignorable="d ignore"
+        Height="auto"
+        Width="auto"
+        Title="MVVM Light Application"
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Background="#FF3C3A3A">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txtboxFilePath" Height="30" Margin="10,10,100,10" Text="{Binding FilePath, Mode=TwoWay}" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Background="{x:Null}"/>
+        <CheckBox x:Name="chkboxSearchDown" Content="Przeszukaj podrzędne katalogi" IsChecked="{Binding IsChecked}" Foreground="White" Grid.Row="1" Grid.Column="0" FontSize="20" Height="30" Margin="10,10,10,10" VerticalAlignment="Top" Background="White"/>
+        <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button.Background>
+                <ImageBrush ImageSource="Pictures/ButtonPicture/BlackButton.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnSearch" Margin="10,10,10,10" Content="Szukaj" Command="{Binding SearchCommand}" Height="30" Width="80" Grid.Row="2" HorizontalAlignment="Left"/>
+        <TextBlock Text="{Binding Content, Mode=OneWay}" Foreground="White" Height="Auto" Width="Auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,10,10,10" Grid.Row="4" Grid.ColumnSpan="2"/>
+        <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Height="30" Width="30" Margin="10,10,10,10" Grid.Row="3">hello</again:MyTextBox>
+        <Label HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="10,10,10,10" Width="42" Grid.Row="3" Grid.Column="1">test</Label>
+    </Grid>
+</Window>
