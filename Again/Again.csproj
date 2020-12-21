@@ -57,17 +57,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\IRegex.cs" />
-    <Compile Include="Commands\ISearchCSFile.cs" />
+    <Compile Include="Commands\ISearchFile.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\SearchCSFile.cs" />
-    <Compile Include="Commands\SearchCSFileFactory.cs" />
+    <Compile Include="Commands\SearchFileFactory.cs" />
     <Compile Include="Commands\SearchDownCommand.cs" />
+    <Compile Include="Commands\SearchXMLFile.cs" />
+    <Compile Include="Commands\SearchXMLFileFactory.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Commands\BrowseCommand.cs" />
     <Compile Include="MyTextBox.cs" />
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\View1.xaml.cs">
@@ -88,6 +93,10 @@
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\View1.xaml">
       <SubType>Designer</SubType>

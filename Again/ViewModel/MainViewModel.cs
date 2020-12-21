@@ -14,11 +14,10 @@ namespace Again.ViewModel
         private Browse sm = new Browse();
         private SearchDown sd = new SearchDown();
         private Search s = new Search();
-        private SearchCSFile scsf = new SearchCSFile();
         private ViewModelBase _selectedViewModel;
         string _searchedValue;
         static string _filePath;
-        string _content;
+        string _content = "";
         bool _isChecked;
         MatchCollection _matchCollection;
         public ViewModelBase SelectedViewModel
@@ -56,13 +55,12 @@ namespace Again.ViewModel
         {
             if (_isChecked == true)
             {
-                sd.SearchDownDirectory(_filePath); Content = sd.content;
+                //sd.SearchDownDirectory(_filePath); Content = sd.content;
             }
             else
             {
-                ISearchCSFile searchCSFile = new SearchCSFileFactory(_filePath);
-                searchCSFile.
-                searchCSFile.Search(_filePath); Content = searchCSFile._content;
+                ISearchFile searchCSFile = new SearchFileFactory(_filePath,_content).CreateSearchCSFile();
+                searchCSFile.Search(); Content = searchCSFile.Content;
             }
             //s.SearchCommand(_filePath); Content = s.content;
         });

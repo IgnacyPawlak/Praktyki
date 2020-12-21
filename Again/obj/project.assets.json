@@ -253,11 +253,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Praktyki\\Again\\Again\\Again.csproj",
+      "projectUniqueName": "D:\\Praktyki\\repo\\Again\\Again.csproj",
       "projectName": "Again",
-      "projectPath": "D:\\Praktyki\\Again\\Again\\Again.csproj",
+      "projectPath": "D:\\Praktyki\\repo\\Again\\Again.csproj",
       "packagesPath": "C:\\Users\\ziom5\\.nuget\\packages\\",
-      "outputPath": "D:\\Praktyki\\Again\\Again\\obj\\",
+      "outputPath": "D:\\Praktyki\\repo\\Again\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

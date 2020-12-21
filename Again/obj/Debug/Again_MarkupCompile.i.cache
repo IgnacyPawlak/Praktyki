@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Praktyki\Again\Again\obj\Debug\
+D:\Praktyki\repo\Again\obj\Debug\
 Again
 none
 false
 CODE_ANALYSIS;DEBUG;TRACE
-D:\Praktyki\Again\Again\App.xaml
-3463021836
+D:\Praktyki\repo\Again\App.xaml
+4364596120
 
-24298627218
+271344731425
 69-2048001255
-MainWindow.xaml;Skins\MainSkin.xaml;Views\View1.xaml;
+MainWindow.xaml;Skins\MainSkin.xaml;UserControl1.xaml;Views\View1.xaml;
 
-False
+True
 

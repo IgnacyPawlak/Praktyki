@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Again.Commands
 {
-    public interface ISearchCSFile
+    public interface ISearchFile
     {
-        string _filePath { get; set; }
-        string _content { get; set; }
-        void Search(string _filePath);
+        string FilePath { get; set; }
+        string Content { get; set; }
+        void Search();
     }
 }

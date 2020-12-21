@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="Again.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Again"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!--<Border Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource GridRowNameHeight}"/>
+                    <RowDefinition Height="{StaticResource GridRowActionHeight}"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBlock Style="{StaticResource NameStyle}" Text="Data Universe"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Style="{StaticResource mainBorder}"  Visibility="{Binding ExecutesChecked, Converter={StaticResource IsVisibleConverter}}">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource GridRowNameHeight}"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBlock Style="{StaticResource NameStyle}" Text="Executes"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <dg:MyDataGrid Grid.Column="0" x:Name="dgExecutes"
+                                              ItemsSource="{Binding AutomaticExecutions}" 
+                                              Margin="15,5" 
+                                              AutoGenerateColumns="False" 
+                                       ShowAddButton="False"                                               
+                                               ShowRemoveButton="False"
+                                               SelectedItem="{Binding SelectedAutomaticExecution}" Loaded="DgExecutes_Loaded">
+                        <dg:MyDataGrid.Columns>
+                            <DataGridTextColumn Header="Call" IsReadOnly="True" Binding="{Binding AutomaticCall.Name}" CanUserSort="False"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Begin time" IsReadOnly="True" Binding="{Binding BeginTime}" CanUserSort="False"></DataGridTextColumn>
+                            <DataGridTextColumn Header="End time" IsReadOnly="True" Binding="{Binding EndTime}" CanUserSort="False"></DataGridTextColumn>
+                            <DataGridTextColumn Header="State" IsReadOnly="True" Binding="{Binding State, Converter={StaticResource EnumTextConverter}}" />
+                        </dg:MyDataGrid.Columns>
+                    </dg:MyDataGrid>
+                    <dg:MyDataGrid Grid.Column="1" x:Name="dgMessages" AutoGenerateColumns="False" ItemsSource="{Binding SelectedAutomaticExecution.Messages}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Header="Id" Binding="{Binding Id}" ></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True" Header="Message" Binding="{Binding Message}" ></DataGridTextColumn>
+                            --><!--<DataGridTextColumn IsReadOnly="True" Header="Full message" Binding="{Binding FullMessage}"></DataGridTextColumn>-->
+                            <!--<dg:DataGridTextImageColumn IsReadOnly="True" Header="Type" ImageSource="{}"/>--><!--
+                            <DataGridTemplateColumn Header="Type" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel >
+                                            <TextBlock Text="{Binding TypeOfMessage, Converter={StaticResource EnumTextConverter}}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <Image Name="ImageUnSelected" Source="{Binding TypeOfMessage, Converter={StaticResource ImageSourceConverter}}" 
+                                                   MaxHeight="20"
+                                                   VerticalAlignment="Center" 
+                                                   />
+                                            <Image Name="ImageSelected" Source="{Binding TypeOfMessage, Converter={StaticResource ImageSourceConverter}, ConverterParameter='selected'}" VerticalAlignment="Center" 
+                                                   MaxHeight="20"
+                                                   Visibility="Collapsed"/>
+                                        </WrapPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger  Binding="{Binding
+                                                RelativeSource={RelativeSource
+                                                Mode=FindAncestor,
+                                                AncestorType={x:Type DataGridCell}},
+                                                Path=IsSelected}" Value="true">
+                                                <Setter TargetName="ImageUnSelected" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="ImageSelected" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn IsReadOnly="True" Header="Object type" Binding="{Binding ObjectTypeEnum, Converter={StaticResource EnumTextConverter}}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True" Header="Object description" Binding="{Binding ObjectDescritpion}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True" Header="Stage type" Binding="{Binding StageType}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </dg:MyDataGrid>
+                </Grid>
+            </Grid>
+        </Border>-->
+
+        <!--<Border Visibility="{Binding ServiceChecked, Converter={StaticResource IsVisibleConverter}}" Style="{StaticResource mainBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Style="{StaticResource NameStyle}" Text="Service"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <WrapPanel>
+
+                            <c:MyButton Content="Start" Command="{Binding ServiceStartCommand}">
+                                <c:MyButton.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource boolMultiConverter}" ConverterParameter="negate;negate" >
+                                        <Binding Path="IsRunningStatus"/>
+                                        <Binding Path="IsServiceChanging"/>
+                                    </MultiBinding>
+                                </c:MyButton.IsEnabled>
+                            </c:MyButton>
+                            <c:MyButton Content="Stop" Command="{Binding ServiceStopCommand}">
+                                <c:MyButton.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource boolMultiConverter}" ConverterParameter="normal;negate" >
+                                        <Binding Path="IsRunningStatus"/>
+                                        <Binding Path="IsServiceChanging"/>
+                                    </MultiBinding>
+                                </c:MyButton.IsEnabled>
+                            </c:MyButton>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <c:MyButton Content="Soft restart" Command="{Binding ServiceSoftResetCommand}">
+                                <c:MyButton.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource boolMultiConverter}" ConverterParameter="normal;negate" >
+                                        <Binding Path="IsRunningStatus"/>
+                                        <Binding Path="IsServiceChanging"/>
+                                    </MultiBinding>
+                                </c:MyButton.IsEnabled>
+                            </c:MyButton>
+                            <c:MyButton Content="Hard restart" Command="{Binding ServiceHardResetCommand}">
+                                <c:MyButton.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource boolMultiConverter}" ConverterParameter="normal;negate" >
+                                        <Binding Path="IsRunningStatus"/>
+                                        <Binding Path="IsServiceChanging"/>
+                                    </MultiBinding>
+                                </c:MyButton.IsEnabled>
+                            </c:MyButton>
+                        </WrapPanel>
+                    </StackPanel>
+                    <DockPanel Grid.Column="1" Width="200" HorizontalAlignment="Left">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type c:MyLabel}" >
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Width" Value="200"/>
+                            </Style>
+                            <Style TargetType="{x:Type Ellipse}">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="Margin" Value="30,0"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <StackPanel>
+                            <StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource visibilityMultiConverter}" ConverterParameter="normal;negate" >
+                                    <Binding Path="IsRunningStatus"/>
+                                    <Binding Path="IsServiceChanging"/>
+                                </MultiBinding>
+                            </StackPanel.Visibility>
+                            <c:MyLabel>Service is running</c:MyLabel>
+                            <Ellipse Width="15" Height="15" Fill="Green" />
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel.Visibility>
+                                <MultiBinding Converter="{StaticResource visibilityMultiConverter}" ConverterParameter="negate;negate" >
+                                    <Binding Path="IsRunningStatus"/>
+                                    <Binding Path="IsServiceChanging"/>
+                                </MultiBinding>
+                            </StackPanel.Visibility>
+                            <c:MyLabel>Service is stopped</c:MyLabel>
+                            <Ellipse Width="15" Height="15" Fill="Red" />
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding IsServiceChanging, Converter={StaticResource IsVisibleConverter} }">
+                            <c:MyLabel >Wait</c:MyLabel>
+                            <Ellipse Width="15" Height="15" Fill="Red" >
+                                <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <ColorAnimation Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" 
+                                                                        From="Red" 
+                                                                        To="Green" 
+                                                                        Duration="0:0:1"
+                                                                        AutoReverse="True"
+                                                                        >
+
+                                                </ColorAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                        </StackPanel>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </Border>-->
+
+    </Grid>
+</UserControl>

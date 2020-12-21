@@ -8,37 +8,39 @@ using System.Threading.Tasks;
 
 namespace Again.Commands
 {
-    class SearchCSFile : ISearchFile
+    class SearchXMLFile: ISearchFile
     {
         public string FilePath { get; set; }
         public string Content { get; set; }
         private List<string> _regexValues = new List<string>();
         private string helpingFilePath;
-
-        public SearchCSFile(string filePath, string content)
+        public SearchXMLFile(string filePath, string content)
         {
             FilePath = filePath;
             Content = content;
         }
-
         public void Search()
         {
             //test
             //_regexValues.Add("test");
-            //tekst pomiędzy pierwszym a ostatnim cudzysłowiem w linii <----- jak na razie najlepsza opcja
+            //tekst w cudzysłowiach
             _regexValues.Add("\".*\"");
+            //wartości przypisane do Headera
+            _regexValues.Add("(?<=Header=\")(?!{Binding)[^\"]+");
+            //wartości przypisane do textu z wyłączeniem bindingów
+            _regexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
+            //to co wyżej tylko dla Content
+            _regexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
             // teksty przypisane do zmiennych znakiem =
             //_regexValues.Add("(?<= ( = )\").[^\",]+");
-            //SŁOWA w cydzysłowiach
-            _regexValues.Add("((?<=\"([ ]+)?)(([ ]+)?[A-Za-z0-9_]+([ ])?)+[^\"]+)+");
-            if (helpingFilePath==null)
-            helpingFilePath = FilePath;
+            if (helpingFilePath == null)
+                helpingFilePath = FilePath;
             var directories = Directory.EnumerateDirectories(helpingFilePath).ToList();
             if (directories.Count > 0)
             {
                 foreach (var item in directories)
                 {
-                    var filteredFiles = Directory.EnumerateFiles(helpingFilePath).Where(file => file.EndsWith(".cs")).ToList();
+                    var filteredFiles = Directory.EnumerateFiles(helpingFilePath).Where(file => file.EndsWith(".xml")).ToList();
                     foreach (var file in filteredFiles)
                     {
                         foreach (string regexValue in _regexValues)
@@ -50,10 +52,10 @@ namespace Again.Commands
                                 foreach (var match in mc)
                                 {
 
-                                    Content += file + "\t" + match +"\n";
+                                    Content += file + "\t" + match + "\n";
                                 }
                             }
-                        }                        
+                        }
                     }
                     helpingFilePath = item;
                     Search();
@@ -61,7 +63,7 @@ namespace Again.Commands
             }
             else
             {
-                var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file =>file.EndsWith(".cs")).ToList();
+                var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xml")).ToList();
                 foreach (var file in filteredFiles)
                 {
                     foreach (string regexValue in _regexValues)

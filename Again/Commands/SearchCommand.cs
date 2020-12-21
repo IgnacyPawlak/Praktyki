@@ -10,7 +10,7 @@ namespace Again.Commands
 {
     public class Search
     {
-        public string content = "";
+        public string content = " ";
 
         public Regex regex  = new Regex("test");
 
