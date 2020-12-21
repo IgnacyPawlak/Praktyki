@@ -32,13 +32,10 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtboxFilePath" Height="30" Margin="10,10,100,10" Text="{Binding FilePath, Mode=TwoWay}" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Background="{x:Null}"/>
+        <TextBox x:Name="txtboxFilePath" Height="30" Margin="10,10,100,10" Text="{Binding FilePath, Mode=TwoWay}" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" />
         <CheckBox x:Name="chkboxSearchDown" Content="Przeszukaj podrzędne katalogi" IsChecked="{Binding IsChecked}" Foreground="White" Grid.Row="1" Grid.Column="0" FontSize="20" Height="30" Margin="10,10,10,10" VerticalAlignment="Top" Background="White"/>
-        <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button.Background>
-                <ImageBrush ImageSource="Pictures/ButtonPicture/BlackButton.png"/>
-            </Button.Background>
-        </Button>
+        <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Background="Black" Foreground="White" Content="Przeglądaj"/>
         <Button x:Name="btnSearch" Margin="10,10,10,10" Content="Szukaj" Command="{Binding SearchCommand}" Height="30" Width="80" Grid.Row="2" HorizontalAlignment="Left"/>
         <TextBlock Text="{Binding Content, Mode=OneWay}" Foreground="White" Height="Auto" Width="Auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,10,10,10" Grid.Row="4" Grid.ColumnSpan="2"/>
         <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Height="30" Width="30" Margin="10,10,10,10" Grid.Row="3">hello</again:MyTextBox>

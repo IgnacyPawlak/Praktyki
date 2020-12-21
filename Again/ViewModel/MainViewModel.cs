@@ -14,39 +14,39 @@ namespace Again.ViewModel
         private Browse sm = new Browse();
         private SearchDown sd = new SearchDown();
         private Search s = new Search();
+        private SearchCSFile scsf = new SearchCSFile();
         private ViewModelBase _selectedViewModel;
-
+        string _searchedValue;
+        static string _filePath;
+        string _content;
+        bool _isChecked;
+        MatchCollection _matchCollection;
         public ViewModelBase SelectedViewModel
         {
             get { return _selectedViewModel; }
             set { this.Set(nameof(SelectedViewModel), ref _selectedViewModel, value); }
         }
 
-        string _searchedValue;
         public string SearchedValue
         {
             get { return _searchedValue; }
             set { this.Set(nameof(SearchedValue), ref _searchedValue, value); }
         }
-        string _filePath;
         public string FilePath
         {
             get { return _filePath; }
             set { this.Set(nameof(FilePath), ref _filePath, value); }
         }
-        string _content;
         public string Content
         {
             get { return _content; }
             set {this.Set(nameof(Content), ref _content, value);}
         }
-        bool _isChecked;
         public bool IsChecked
         {
             get { return _isChecked; }
             set { this.Set(nameof(IsChecked), ref _isChecked, value); }
         }
-        MatchCollection _matchCollection;
         public MatchCollection InitialMatchCollection
         {
             get { return _matchCollection; }
@@ -58,7 +58,13 @@ namespace Again.ViewModel
             {
                 sd.SearchDownDirectory(_filePath); Content = sd.content;
             }
-            else { s.SearchCommand(_filePath); Content = s.content; }
+            else
+            {
+                ISearchCSFile searchCSFile = new SearchCSFileFactory(_filePath);
+                searchCSFile.
+                searchCSFile.Search(_filePath); Content = searchCSFile._content;
+            }
+            //s.SearchCommand(_filePath); Content = s.content;
         });
         public ICommand BrowseCommand => new RelayCommand(() => { FilePath = sm.BrowseMethod();  });
     }

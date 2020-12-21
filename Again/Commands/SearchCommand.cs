@@ -11,9 +11,12 @@ namespace Again.Commands
     public class Search
     {
         public string content = "";
+
+        public Regex regex  = new Regex("test");
+
         public void SearchCommand(string directoryPath)
         {
-            Regex regex = new Regex("test");
+            
             var filteredFiles = Directory
                     .EnumerateFiles(directoryPath)
                     .Where(file => file.ToLower().EndsWith(".xml") || file.EndsWith(".cs"))

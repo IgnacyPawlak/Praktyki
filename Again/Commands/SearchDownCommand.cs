@@ -12,9 +12,11 @@ namespace Again.Commands
     {
 
         public string content = "";
+
+        public Regex regex= new Regex("test");
+
         public void SearchDownDirectory(string directoryPath)
         {
-            Regex regex = new Regex("test");
             var directories = Directory.EnumerateDirectories(directoryPath).ToList();
             if (directories.Count > 0)
             {
