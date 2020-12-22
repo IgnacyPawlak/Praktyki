@@ -57,10 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\ISearchFile.cs" />
-    <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\SearchCSFile.cs" />
     <Compile Include="Commands\SearchFileFactory.cs" />
-    <Compile Include="Commands\SearchDownCommand.cs" />
     <Compile Include="Commands\SearchXMLFile.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />

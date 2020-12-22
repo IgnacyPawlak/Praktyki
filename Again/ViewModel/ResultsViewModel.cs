@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Again.ViewModel
 {
-    class ResultsViewModel:ViewModelBase
+    public class ResultsViewModel:ViewModelBase
     {
+        public ResultsViewModel(MainViewModel baseViewModel)
+        {
+            MyBaseViewModel = baseViewModel;
+        }
 
+        public MainViewModel MyBaseViewModel { get; private set; }
     }
 }

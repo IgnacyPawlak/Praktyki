@@ -11,16 +11,14 @@ namespace Again.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        //private readonly static ResultsViewModel _resultsViewModel = new ResultsViewModel();
         private Browse sm = new Browse();
         private ViewModelBase _selectedViewModel;
         string _searchedValue;
-        static string _filePath;
+        static string _filePath = @"C:\";
         string _content = "";
         bool _isChecked;
         MatchCollection _matchCollection;
-        private readonly static ResultsViewModel _resultsViewModel = new ResultsViewModel();
-        //private Search s = new Search();
-        //private SearchDown sd = new SearchDown();
         public ViewModelBase SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -36,7 +34,7 @@ namespace Again.ViewModel
         {
             get { return _filePath; }
             set { this.Set(nameof(FilePath), ref _filePath, value); }
-        }
+        } 
         public string Content
         {
             get { return _content; }
@@ -52,15 +50,16 @@ namespace Again.ViewModel
             get { return _matchCollection; }
             set { this.Set(nameof(InitialMatchCollection), ref _matchCollection, value); }
         }
-        public ICommand SearchCommand { get; set; }
-        //public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
+        public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
         public ICommand BrowseCommand => new RelayCommand(() => { FilePath = sm.BrowseMethod();  });
         private void ExecuteSearchCommand()
         {
+            Content = string.Empty;
             if (_isChecked == true)
             {
                 ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
-                searchFile.SearchDown(); Content = searchFile.Content;
+                searchFile.SearchDown();
+                Content = searchFile.Content;
                 //sd.SearchDownDirectory(_filePath); Content = sd.content;
             }
             else
@@ -68,13 +67,8 @@ namespace Again.ViewModel
                 ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
                 searchFile.Search();
                 Content = searchFile.Content;
+                //s.SearchCommand(_filePath); Content = s.content;
             }
-            //s.SearchCommand(_filePath); Content = s.content;
-            SelectedViewModel = MainViewModel._resultsViewModel;
-        }
-        public MainViewModel()
-        {
-            SearchCommand = new RelayCommand(() => ExecuteSearchCommand());
         }
     }
 }
