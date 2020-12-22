@@ -18,7 +18,14 @@ namespace Again.ViewModel
         static string _filePath = @"C:\";
         string _content = "";
         bool _isChecked;
+        bool _isCheckedCSFile;
+        bool _isCheckedXMLFile;
         MatchCollection _matchCollection;
+        public ResultsViewModel a { get; private set; }
+        public MainViewModel()
+        {
+            a = new ResultsViewModel(this);
+        }
         public ViewModelBase SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -52,22 +59,54 @@ namespace Again.ViewModel
         }
         public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
         public ICommand BrowseCommand => new RelayCommand(() => { FilePath = sm.BrowseMethod();  });
+
+        public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
+        public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
+
         private void ExecuteSearchCommand()
         {
             Content = string.Empty;
             if (_isChecked == true)
             {
-                ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
-                searchFile.SearchDown();
-                Content = searchFile.Content;
-                //sd.SearchDownDirectory(_filePath); Content = sd.content;
+                if(_isCheckedCSFile)
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchCSFile();
+                    searchFile.SearchDown();
+                    Content = searchFile.Content;
+                }
+                else if(_isCheckedXMLFile)
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchXMLFile();
+                    searchFile.SearchDown();
+                    Content = searchFile.Content;
+                }
+                else
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
+                    searchFile.SearchDown();
+                    Content = searchFile.Content;
+                }                
             }
             else
             {
-                ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
-                searchFile.Search();
-                Content = searchFile.Content;
-                //s.SearchCommand(_filePath); Content = s.content;
+                if (_isCheckedCSFile)
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchCSFile();
+                    searchFile.Search();
+                    Content = searchFile.Content;
+                }
+                else if (_isCheckedXMLFile)
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchXMLFile();
+                    searchFile.Search();
+                    Content = searchFile.Content;
+                }
+                else
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
+                    searchFile.Search();
+                    Content = searchFile.Content;
+                }
             }
         }
     }

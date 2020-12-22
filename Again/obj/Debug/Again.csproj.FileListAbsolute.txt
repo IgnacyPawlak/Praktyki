@@ -63,3 +63,4 @@ D:\Praktyki\repo\Again\obj\Debug\UserControl1.g.cs
 D:\Praktyki\repo\Again\obj\Debug\UserControl1.baml
 D:\Praktyki\repo\Again\obj\Debug\Views\ResultsView.g.cs
 D:\Praktyki\repo\Again\obj\Debug\Views\ResultsView.baml
+D:\Praktyki\repo\Again\obj\Debug\Again.csprojAssemblyReference.cache

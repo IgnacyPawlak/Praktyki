@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Results, Source={StaticResource Locator}}">
     <Grid >
-        <ScrollViewer HorizontalAlignment="Left" Margin="10,10,10,10" Grid.Row="4" Grid.ColumnSpan="2" Height="Auto" Width="Auto" VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <TextBlock Text="{Binding M.Content, Mode=OneWay}" Foreground="White" Height="Auto" Width="Auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,10,10,10"/>
+        <ScrollViewer HorizontalAlignment="Left" Margin="10,10,10,10" Height="Auto" Width="Auto" VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <TextBlock Text="{Binding MyBaseViewModel.Content, Mode=OneWay}" Foreground="White" Height="Auto" Width="Auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,10,10,10"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

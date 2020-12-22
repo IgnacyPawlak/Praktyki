@@ -21,13 +21,19 @@ namespace Again.Commands
             //test
             //_regexValues.Add("test");
             //tekst w cudzysłowiach
-            _regexValues.Add("\".*\"");
+            //_regexValues.Add("\".*\"");
             //wartości przypisane do Headera
             _regexValues.Add("(?<=Header=\")(?!{Binding)[^\"]+");
+            //Name
+            _regexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");
             //wartości przypisane do textu z wyłączeniem bindingów
-            _regexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
+            //_regexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
             //to co wyżej tylko dla Content
-            _regexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
+            //_regexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
+            //Content i text w jednym
+            _regexValues.Add("(?<=(Content|Text)=\")(?!{Binding)[^\"]+");
+            //Słowa pomiędzy ><
+            _regexValues.Add("(?<=(>))[a-zA-Z_0-9.]*");
             // teksty przypisane do zmiennych znakiem =
             //_regexValues.Add("(?<= ( = )\").[^\",]+");
         }
@@ -40,7 +46,7 @@ namespace Again.Commands
             {
                 foreach (var item in directories)
                 {
-                    var filteredFiles = Directory.EnumerateFiles(helpingFilePath).Where(file => file.EndsWith(".xml")).ToList();
+                    var filteredFiles = Directory.EnumerateFiles(helpingFilePath).Where(file => file.EndsWith(".xaml")).ToList();
                     foreach (var file in filteredFiles)
                     {
                         foreach (string regexValue in _regexValues)
@@ -51,7 +57,7 @@ namespace Again.Commands
                             {
                                 foreach (var match in mc)
                                 {
-
+                                    if(string.IsNullOrWhiteSpace(match.ToString())==false)
                                     Content += file + "\t" + match + "\n";
                                 }
                             }
@@ -68,7 +74,7 @@ namespace Again.Commands
         }
         public void Search()
         {
-            var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xml")).ToList();
+            var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xaml")).ToList();
             foreach (var file in filteredFiles)
             {
                 foreach (string regexValue in _regexValues)
@@ -79,10 +85,9 @@ namespace Again.Commands
                     {
                         foreach (var match in mc)
                         {
-
-                            Content += file + "\t" + match + "\n";
+                            if (string.IsNullOrWhiteSpace(match.ToString()) == false)
+                                Content += file + "\t" + match + "\n";
                         }
-
                     }
                 }
             }
