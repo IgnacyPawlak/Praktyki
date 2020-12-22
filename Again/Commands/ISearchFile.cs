@@ -11,5 +11,6 @@ namespace Again.Commands
         string FilePath { get; set; }
         string Content { get; set; }
         void Search();
+        void SearchDown();
     }
 }

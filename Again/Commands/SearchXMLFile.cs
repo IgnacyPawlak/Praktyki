@@ -18,9 +18,6 @@ namespace Again.Commands
         {
             FilePath = filePath;
             Content = content;
-        }
-        public void Search()
-        {
             //test
             //_regexValues.Add("test");
             //tekst w cudzysłowiach
@@ -33,6 +30,9 @@ namespace Again.Commands
             _regexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
             // teksty przypisane do zmiennych znakiem =
             //_regexValues.Add("(?<= ( = )\").[^\",]+");
+        }
+        public void SearchDown()
+        {
             if (helpingFilePath == null)
                 helpingFilePath = FilePath;
             var directories = Directory.EnumerateDirectories(helpingFilePath).ToList();
@@ -58,26 +58,31 @@ namespace Again.Commands
                         }
                     }
                     helpingFilePath = item;
-                    Search();
+                    SearchDown();
                 }
             }
             else
             {
-                var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xml")).ToList();
-                foreach (var file in filteredFiles)
+                Search();
+            }
+        }
+        public void Search()
+        {
+            var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xml")).ToList();
+            foreach (var file in filteredFiles)
+            {
+                foreach (string regexValue in _regexValues)
                 {
-                    foreach (string regexValue in _regexValues)
+                    Regex newRegex = new Regex(regexValue);
+                    MatchCollection mc = newRegex.Matches(File.ReadAllText(file));
+                    if (mc.Count > 0 && !(Content.Contains(file)))
                     {
-                        Regex newRegex = new Regex(regexValue);
-                        MatchCollection mc = newRegex.Matches(File.ReadAllText(file));
-                        if (mc.Count > 0 && !(Content.Contains(file)))
+                        foreach (var match in mc)
                         {
-                            foreach (var match in mc)
-                            {
 
-                                Content += file + "\t" + match + "\n";
-                            }
+                            Content += file + "\t" + match + "\n";
                         }
+
                     }
                 }
             }

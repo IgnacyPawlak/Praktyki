@@ -23,10 +23,6 @@ namespace Again.Commands
 
         public string Content { get; set; }
         public string FilePath { get; set; }
-
-        public void Search(string _filePath)
-        {
-        }
         public ISearchFile CreateSearchCSFile()
         {
             return new SearchCSFile(FilePath,Content);
@@ -37,12 +33,21 @@ namespace Again.Commands
         }
 
         List<ISearchFile> SearchList=new List<ISearchFile>();
+        public void SearchDown()
+        {
+            foreach (var item in SearchList)
+            {
+                item.SearchDown();
+                Content += item.Content;
+            }
+        }
 
         public void Search()
         {
             foreach (var item in SearchList)
             {
                 item.Search();
+                Content += item.Content;
             }
 
         }

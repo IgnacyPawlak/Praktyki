@@ -19,10 +19,6 @@ namespace Again.Commands
         {
             FilePath = filePath;
             Content = content;
-        }
-
-        public void Search()
-        {
             //test
             //_regexValues.Add("test");
             //tekst pomiędzy pierwszym a ostatnim cudzysłowiem w linii <----- jak na razie najlepsza opcja
@@ -31,8 +27,12 @@ namespace Again.Commands
             //_regexValues.Add("(?<= ( = )\").[^\",]+");
             //SŁOWA w cydzysłowiach
             _regexValues.Add("((?<=\"([ ]+)?)(([ ]+)?[A-Za-z0-9_]+([ ])?)+[^\"]+)+");
-            if (helpingFilePath==null)
-            helpingFilePath = FilePath;
+        }
+
+        public void SearchDown()
+        {
+            if (helpingFilePath == null)
+                helpingFilePath = FilePath;
             var directories = Directory.EnumerateDirectories(helpingFilePath).ToList();
             if (directories.Count > 0)
             {
@@ -50,18 +50,25 @@ namespace Again.Commands
                                 foreach (var match in mc)
                                 {
 
-                                    Content += file + "\t" + match +"\n";
+                                    Content += file + "\t" + match + "\n";
                                 }
                             }
-                        }                        
+                        }
                     }
                     helpingFilePath = item;
-                    Search();
+                    SearchDown();
                 }
             }
             else
             {
-                var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file =>file.EndsWith(".cs")).ToList();
+                Search();
+            }
+        }
+        public void Search()
+        {
+            try
+            {
+                var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".cs")).ToList();
                 foreach (var file in filteredFiles)
                 {
                     foreach (string regexValue in _regexValues)
@@ -75,10 +82,16 @@ namespace Again.Commands
 
                                 Content += file + "\t" + match + "\n";
                             }
+
                         }
                     }
                 }
             }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
+            
         }
     }
 }

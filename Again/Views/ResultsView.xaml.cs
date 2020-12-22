@@ -18,9 +18,9 @@ namespace Again.Views
     /// <summary>
     /// Interaction logic for View1.xaml
     /// </summary>
-    public partial class View1 : UserControl
+    public partial class ResultsView : UserControl
     {
-        public View1()
+        public ResultsView()
         {
             InitializeComponent();
         }

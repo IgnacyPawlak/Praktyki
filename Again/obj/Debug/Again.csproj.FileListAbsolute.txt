@@ -30,10 +30,8 @@ D:\Praktyki\Again\Again\obj\Debug\Again.csproj.CopyComplete
 D:\Praktyki\Again\Again\obj\Debug\Again.exe
 D:\Praktyki\Again\Again\obj\Debug\Again.pdb
 D:\Praktyki\Again\Again\obj\Debug\Again.csprojAssemblyReference.cache
-D:\Praktyki\repo\Again\obj\Debug\Again.csprojAssemblyReference.cache
 D:\Praktyki\repo\Again\obj\Debug\Skins\MainSkin.baml
 D:\Praktyki\repo\Again\obj\Debug\MainWindow.g.cs
-D:\Praktyki\repo\Again\obj\Debug\Views\View1.g.cs
 D:\Praktyki\repo\Again\obj\Debug\App.g.cs
 D:\Praktyki\repo\Again\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Praktyki\repo\Again\obj\Debug\Again_MarkupCompile.cache
@@ -56,7 +54,6 @@ D:\Praktyki\repo\Again\bin\Debug\GalaSoft.MvvmLight.pdb
 D:\Praktyki\repo\Again\bin\Debug\System.Windows.Interactivity.dll
 D:\Praktyki\repo\Again\obj\Debug\App.baml
 D:\Praktyki\repo\Again\obj\Debug\MainWindow.baml
-D:\Praktyki\repo\Again\obj\Debug\Views\View1.baml
 D:\Praktyki\repo\Again\obj\Debug\Again.g.resources
 D:\Praktyki\repo\Again\obj\Debug\Again.Properties.Resources.resources
 D:\Praktyki\repo\Again\obj\Debug\Again.csproj.GenerateResource.cache
@@ -64,3 +61,5 @@ D:\Praktyki\repo\Again\obj\Debug\Again.csproj.CoreCompileInputs.cache
 D:\Praktyki\repo\Again\obj\Debug\Again.csproj.CopyComplete
 D:\Praktyki\repo\Again\obj\Debug\UserControl1.g.cs
 D:\Praktyki\repo\Again\obj\Debug\UserControl1.baml
+D:\Praktyki\repo\Again\obj\Debug\Views\ResultsView.g.cs
+D:\Praktyki\repo\Again\obj\Debug\Views\ResultsView.baml

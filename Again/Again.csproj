@@ -56,14 +56,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\IRegex.cs" />
     <Compile Include="Commands\ISearchFile.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\SearchCSFile.cs" />
     <Compile Include="Commands\SearchFileFactory.cs" />
     <Compile Include="Commands\SearchDownCommand.cs" />
     <Compile Include="Commands\SearchXMLFile.cs" />
-    <Compile Include="Commands\SearchXMLFileFactory.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
@@ -74,9 +72,10 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ResultsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\View1.xaml.cs">
-      <DependentUpon>View1.xaml</DependentUpon>
+    <Compile Include="Views\ResultsView.xaml.cs">
+      <DependentUpon>ResultsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,7 +97,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\View1.xaml">
+    <Page Include="Views\ResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
