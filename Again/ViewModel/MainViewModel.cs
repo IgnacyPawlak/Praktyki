@@ -21,7 +21,7 @@ namespace Again.ViewModel
         bool _isCheckedXMLFile;
         MatchCollection _matchCollection;
         public List<string> _regexValues = new List<string>();
-        string _comboBoxSelectedItem;
+        string _comboBoxSelectedItem = "(?<=Text=\")(?!{Binding)[^\"]+";
         public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);}}
         public ResultsViewModel a { get; private set; }
         public MainViewModel()
@@ -66,7 +66,7 @@ namespace Again.ViewModel
         public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
         public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
 
-        public string ComboBoxSelectedItem { get { return _comboBoxSelectedItem; } set { this.Set(nameof(ComboBoxSelectedItem), ref _comboBoxSelectedItem, value); }}
+        public string ComboBoxSelectedItem { get { return _comboBoxSelectedItem; } set { this.Set(nameof(ComboBoxSelectedItem), ref _comboBoxSelectedItem, value); }} 
 
         private void ExecuteSearchCommand()
         {
