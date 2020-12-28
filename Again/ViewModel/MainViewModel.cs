@@ -11,7 +11,6 @@ namespace Again.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        //private readonly static ResultsViewModel _resultsViewModel = new ResultsViewModel();
         private Browse sm = new Browse();
         private ViewModelBase _selectedViewModel;
         string _searchedValue;
@@ -21,6 +20,9 @@ namespace Again.ViewModel
         bool _isCheckedCSFile;
         bool _isCheckedXMLFile;
         MatchCollection _matchCollection;
+        public List<string> _regexValues = new List<string>();
+        string _comboBoxSelectedItem;
+        public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);}}
         public ResultsViewModel a { get; private set; }
         public MainViewModel()
         {
@@ -59,9 +61,12 @@ namespace Again.ViewModel
         }
         public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
         public ICommand BrowseCommand => new RelayCommand(() => { FilePath = sm.BrowseMethod();  });
+        public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
 
         public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
         public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
+
+        public string ComboBoxSelectedItem { get { return _comboBoxSelectedItem; } set { this.Set(nameof(ComboBoxSelectedItem), ref _comboBoxSelectedItem, value); }}
 
         private void ExecuteSearchCommand()
         {
@@ -70,19 +75,19 @@ namespace Again.ViewModel
             {
                 if(_isCheckedCSFile)
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchCSFile();
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem).CreateSearchCSFile();
                     searchFile.SearchDown();
                     Content = searchFile.Content;
                 }
                 else if(_isCheckedXMLFile)
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchXMLFile();
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem).CreateSearchXMLFile();
                     searchFile.SearchDown();
                     Content = searchFile.Content;
                 }
                 else
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem);
                     searchFile.SearchDown();
                     Content = searchFile.Content;
                 }                
@@ -91,22 +96,35 @@ namespace Again.ViewModel
             {
                 if (_isCheckedCSFile)
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchCSFile();
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem).CreateSearchCSFile();
                     searchFile.Search();
                     Content = searchFile.Content;
                 }
                 else if (_isCheckedXMLFile)
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content).CreateSearchXMLFile();
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem).CreateSearchXMLFile();
                     searchFile.Search();
                     Content = searchFile.Content;
                 }
                 else
                 {
-                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content);
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, _comboBoxSelectedItem);
                     searchFile.Search();
                     Content = searchFile.Content;
                 }
+            }
+        }
+        private void ExecuteComboBoxCommand()
+        {
+            if (_isCheckedXMLFile)
+            {
+                RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
+                RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
+                RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");
+            }
+            else
+            {
+                RegexValues.Add("else");
             }
         }
     }

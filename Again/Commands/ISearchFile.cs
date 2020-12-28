@@ -12,5 +12,6 @@ namespace Again.Commands
         string Content { get; set; }
         void Search();
         void SearchDown();
+        List<string> _regexValues { get; }
     }
 }

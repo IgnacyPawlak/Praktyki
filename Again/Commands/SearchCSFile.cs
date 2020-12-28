@@ -12,7 +12,7 @@ namespace Again.Commands
     {
         public string FilePath { get; set; }
         public string Content { get; set; }
-        private List<string> _regexValues = new List<string>();
+        public List<string> _regexValues { get; private set; } = new List<string>();
         private string helpingFilePath;
 
         public SearchCSFile(string filePath, string content)
