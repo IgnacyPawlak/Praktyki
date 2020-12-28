@@ -20,7 +20,7 @@ namespace Again
             set => SetValue(MytextProperty, value);
         }
 
-        string _test = "ten tekst też znajdź";
+        string _test = "ten tekst też znajdź" + "czy wyjdzie błąd?";
         public string Test { get => _test; set => _test = value; }
     }
 }

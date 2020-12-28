@@ -22,11 +22,17 @@ namespace Again.Commands
             //test
             //_regexValues.Add("test");
             //tekst pomiędzy pierwszym a ostatnim cudzysłowiem w linii <----- jak na razie najlepsza opcja
-            _regexValues.Add("\".*\"");
+            //_regexValues.Add("\".*\"");
             // teksty przypisane do zmiennych znakiem =
             //_regexValues.Add("(?<= ( = )\").[^\",]+");
             //SŁOWA w cydzysłowiach
-            _regexValues.Add("((?<=\"([ ]+)?)(([ ]+)?[A-Za-z0-9_]+([ ])?)+[^\"]+)+");
+            //_regexValues.Add("((?<=\"([ ]+)?)(([ ]+)?[A-Za-z0-9_]+([ ])?)+[^\"]+)+");
+            //znalezione na stackoverflow
+            //string pattern = "([\"'])(?:(?=(\\?))\\2.)*?\\1";
+            // dopasowuje tylko jedno wyrażenie w "" w linii
+            string pattern = @"""[\w\s\.]+""";
+            _regexValues.Add(pattern);
+            //_regexValues.Add("([^\"]*)");
         }
 
         public void SearchDown()
@@ -43,14 +49,14 @@ namespace Again.Commands
                     {
                         foreach (string regexValue in _regexValues)
                         {
-                            Regex newRegex = new Regex(regexValue);
+                            Regex newRegex = new Regex(regexValue, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
                             MatchCollection mc = newRegex.Matches(File.ReadAllText(file));
                             if (mc.Count > 0 && !(Content.Contains(file)))
                             {
                                 foreach (var match in mc)
                                 {
 
-                                    Content += file + "\t" + match + "\n";
+                                    Content += /*file + "\t" + */match + "\n";
                                 }
                             }
                         }
@@ -73,14 +79,14 @@ namespace Again.Commands
                 {
                     foreach (string regexValue in _regexValues)
                     {
-                        Regex newRegex = new Regex(regexValue);
+                        Regex newRegex = new Regex(regexValue, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace|RegexOptions.Multiline);
                         MatchCollection mc = newRegex.Matches(File.ReadAllText(file));
                         if (mc.Count > 0 && !(Content.Contains(file)))
                         {
                             foreach (var match in mc)
                             {
 
-                                Content += file + "\t" + match + "\n";
+                                Content += /*file + "\t" + */match + "\n";
                             }
 
                         }

@@ -43,7 +43,7 @@
         <ContentControl  Content="{Binding Results, Source={StaticResource Locator}}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
         <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Margin="142,14,141,13" Grid.Row="3">hello</again:MyTextBox>
         <Label HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="171,10,180,10" Width="42" Grid.Row="3" Grid.Column="1">test</Label>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding RegexValues}" SelectedItem="{Binding ComboBoxSelectedItem}">
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchCriteria}" SelectedIndex="{Binding ComboBoxSelectedIndex}" FontSize="20">
         </ComboBox>
     </Grid>
 </Window>
