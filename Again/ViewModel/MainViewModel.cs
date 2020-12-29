@@ -113,7 +113,7 @@ namespace Again.ViewModel
 
         public int ListViewSelectedIndex { get { return _listViewSelectedIndex; } set { this.Set(nameof(ListViewSelectedIndex), ref _listViewSelectedIndex, value); } }
 
-        public ICommand SearchCommand => new RelayCommand(() => NewExecuteSearchCommand());
+        public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
 
         public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
 
@@ -138,6 +138,7 @@ namespace Again.ViewModel
 
         private void ExecuteSearchCommand()
         {
+            PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath);
             Content = string.Empty;
             if (_isCheckedSearchDown == true)
             {
@@ -145,18 +146,21 @@ namespace Again.ViewModel
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchCSFile();
                     searchFile.SearchDown();
+                    ListOfFiles = populateListOfFiles.PopulateListOfCSFilesFunction();
                     Content = searchFile.Content;
                 }
                 else if(_isCheckedXMLFile)
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchXMLFile();
                     searchFile.SearchDown();
+                    ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
                     Content = searchFile.Content;
                 }
                 else
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString());
                     searchFile.SearchDown();
+                    ListOfFiles = populateListOfFiles.PopulateListOfFilesFunction();
                     Content = searchFile.Content;
                 }                
             }
@@ -181,11 +185,13 @@ namespace Again.ViewModel
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchCSFile();
                     searchFile.Search();
+                    ListOfFiles = populateListOfFiles.PopulateListOfCSFilesFunction();
                     Content = searchFile.Content;
                 }
                 else if (_isCheckedXMLFile)
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchXMLFile();
+                    ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
                     searchFile.Search();
                     Content = searchFile.Content;
                 }
@@ -193,9 +199,11 @@ namespace Again.ViewModel
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString());
                     searchFile.Search();
+                    ListOfFiles = populateListOfFiles.PopulateListOfFilesFunction();
                     Content = searchFile.Content;
                 }
             }
+            SearchButtonClicked = true;
         }
 
         private void ExecuteComboBoxCommand()
@@ -216,7 +224,7 @@ namespace Again.ViewModel
 
         private void NewExecuteSearchCommand()
         {
-            PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath,Content);
+            PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath);
             ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
             SearchButtonClicked = true;
         }

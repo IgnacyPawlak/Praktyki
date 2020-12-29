@@ -13,9 +13,6 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer HorizontalAlignment="Left" Margin="10,10,10,10" Height="Auto" Width="Auto" VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <TextBlock Text="{Binding MyBaseViewModel.Content, Mode=OneWay}" Foreground="White" Height="Auto" Width="Auto" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,10,10,10" />
-        </ScrollViewer>
         <ListView Background="#FF3C3A3A" Foreground="White" ItemsSource="{Binding MyBaseViewModel.ListOfFiles}" SelectedIndex="{Binding ListViewSelectedIndex}" SelectedItem="{Binding MyBaseViewModel.ListViewSelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
