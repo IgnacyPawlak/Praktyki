@@ -15,5 +15,6 @@ namespace Again.ViewModel
         }
 
         public MainViewModel MyBaseViewModel { get; private set; }
+        
     }
 }

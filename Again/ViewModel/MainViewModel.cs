@@ -13,30 +13,56 @@ namespace Again.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private Browse sm = new Browse();
+
         private ViewModelBase _selectedViewModel;
+
         string _searchedValue;
+
         static string _filePath = @"D:\Praktyki\repo\Again";
+
         string _content = "";
+
         bool _isCheckedSearchDown;
+
         bool _isCheckedSearchForSingleFile;
+
         bool _isCheckedCSFile;
+
         bool _isCheckedXMLFile;
+
+        bool _searchButtonClicked;
+
         MatchCollection _matchCollection;
+
         private List<string> _regexValues = new List<string>();
+
         int _comboBoxSelectedIndex = 0;
+
+        int _listViewSelectedIndex = 0;
+
         List<string> _searchCriteria = new List<string>();
+
         List<Files> _listOfFiles = new List<Files>();
+
+        Files _listViewSelectedItem;
+
+        public bool SearchButtonClicked { get { return _searchButtonClicked; } set { this.Set(nameof(SearchButtonClicked), ref _searchButtonClicked, value); } }
+
+        public Files ListViewSelectedItem { get { return _listViewSelectedItem; } set { this.Set(nameof(ListViewSelectedItem), ref _listViewSelectedItem, value); } }
+
         public List<Files> ListOfFiles { get { return _listOfFiles; } private set { this.Set(nameof(ListOfFiles), ref _listOfFiles, value); } }
-        public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);}}
-        public ResultsViewModel a { get; private set; }
+
+        public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);} }
+
         public List<string> SearchCriteria { get { return _searchCriteria; } set { this.Set(nameof(SearchCriteria), ref _searchCriteria, value); } }
+
         public MainViewModel()
         {
-            a = new ResultsViewModel(this);
             RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
             RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
             RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");
         }
+
         public ViewModelBase SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -48,39 +74,51 @@ namespace Again.ViewModel
             get { return _searchedValue; }
             set { this.Set(nameof(SearchedValue), ref _searchedValue, value); }
         }
+
         public string FilePath
         {
             get { return _filePath; }
             set { this.Set(nameof(FilePath), ref _filePath, value); }
         } 
+
         public string Content
         {
             get { return _content; }
             set {this.Set(nameof(Content), ref _content, value);}
         }
+
         public bool IsCheckedSearchDown
         {
             get { return _isCheckedSearchDown; }
             set { this.Set(nameof(IsCheckedSearchDown), ref _isCheckedSearchDown, value); }
         }
+
         public bool IsCheckedSearchForSingleFile
         {
             get { return _isCheckedSearchForSingleFile; }
             set { this.Set(nameof(IsCheckedSearchForSingleFile), ref _isCheckedSearchForSingleFile, value); }
         }
+
         public MatchCollection InitialMatchCollection
         {
             get { return _matchCollection; }
             set { this.Set(nameof(InitialMatchCollection), ref _matchCollection, value); }
         }
-        public ICommand SearchCommand => new RelayCommand(() => NewExecuteSearchCommand());
-        public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
-        public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
 
         public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
+
         public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
 
-        public int ComboBoxSelectedIndex { get { return _comboBoxSelectedIndex; } set { this.Set(nameof(ComboBoxSelectedIndex), ref _comboBoxSelectedIndex, value); }} 
+        public int ComboBoxSelectedIndex { get { return _comboBoxSelectedIndex; } set { this.Set(nameof(ComboBoxSelectedIndex), ref _comboBoxSelectedIndex, value); } } 
+
+        public int ListViewSelectedIndex { get { return _listViewSelectedIndex; } set { this.Set(nameof(ListViewSelectedIndex), ref _listViewSelectedIndex, value); } }
+
+        public ICommand SearchCommand => new RelayCommand(() => NewExecuteSearchCommand());
+
+        public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
+
+        public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
+
         private void ExecuteBrowseCommand()
         {
             if(_isCheckedSearchForSingleFile)
@@ -97,6 +135,7 @@ namespace Again.ViewModel
                 FilePath = sm.BrowseMethod();
             }
         }
+
         private void ExecuteSearchCommand()
         {
             Content = string.Empty;
@@ -158,6 +197,7 @@ namespace Again.ViewModel
                 }
             }
         }
+
         private void ExecuteComboBoxCommand()
         {
             if (IsCheckedXMLFile)
@@ -173,10 +213,12 @@ namespace Again.ViewModel
             {
             }
         }
+
         private void NewExecuteSearchCommand()
         {
             PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath,Content);
             ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
+            SearchButtonClicked = true;
         }
     }
 }
