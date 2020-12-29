@@ -7,6 +7,7 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:again="clr-namespace:Again"
         xmlns:commands="clr-namespace:Again.Commands"
+        xmlns:functions="clr-namespace:Again.Functions"
         mc:Ignorable="d ignore"
         Height="auto"
         Width="1080"
@@ -44,8 +45,15 @@
         <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="3" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Background="Black" Foreground="White" Content="Przeglądaj"/>
         <Button x:Name="btnSearch" Margin="10,10,0,10" Content="Szukaj" Command="{Binding SearchCommand}" Width="80" Grid.Row="2" HorizontalAlignment="Left"/>
-        <ContentControl  Content="{Binding Results, Source={StaticResource Locator}}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" />
-        <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Margin="142,14,141,13" Grid.Row="3">hello</again:MyTextBox>
+        <ContentControl  Content="{Binding Results, Source={StaticResource Locator}}" Grid.Row="4" Grid.Column="1" />
+        <ListView Grid.Row="4" Grid.Column="0" Background="#FF3C3A3A" Foreground="White" ItemsSource="{Binding ListOfFiles}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="3" Grid.Column="2">hello</again:MyTextBox>
         <Label HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="10,10,10,10" Width="42" Grid.Row="3" Grid.Column="1">test</Label>
         <ComboBox x:Name="ComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchCriteria}" SelectedIndex="{Binding ComboBoxSelectedIndex}" FontSize="20" Visibility="{Binding IsCheckedXMLFile, Converter={StaticResource BoolToVisConverter}}"/>
 

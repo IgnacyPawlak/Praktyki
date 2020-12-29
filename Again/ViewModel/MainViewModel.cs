@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Again.Commands;
+using Again.Functions;
 
 namespace Again.ViewModel
 {
@@ -14,7 +15,7 @@ namespace Again.ViewModel
         private Browse sm = new Browse();
         private ViewModelBase _selectedViewModel;
         string _searchedValue;
-        static string _filePath = @"C:\";
+        static string _filePath = @"D:\Praktyki\repo\Again";
         string _content = "";
         bool _isCheckedSearchDown;
         bool _isCheckedSearchForSingleFile;
@@ -23,9 +24,11 @@ namespace Again.ViewModel
         MatchCollection _matchCollection;
         private List<string> _regexValues = new List<string>();
         int _comboBoxSelectedIndex = 0;
+        List<string> _searchCriteria = new List<string>();
+        List<Files> _listOfFiles = new List<Files>();
+        public List<Files> ListOfFiles { get { return _listOfFiles; } private set { this.Set(nameof(ListOfFiles), ref _listOfFiles, value); } }
         public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);}}
         public ResultsViewModel a { get; private set; }
-        List<string> _searchCriteria = new List<string>();
         public List<string> SearchCriteria { get { return _searchCriteria; } set { this.Set(nameof(SearchCriteria), ref _searchCriteria, value); } }
         public MainViewModel()
         {
@@ -70,7 +73,7 @@ namespace Again.ViewModel
             get { return _matchCollection; }
             set { this.Set(nameof(InitialMatchCollection), ref _matchCollection, value); }
         }
-        public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
+        public ICommand SearchCommand => new RelayCommand(() => NewExecuteSearchCommand());
         public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
         public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
 
@@ -169,6 +172,11 @@ namespace Again.ViewModel
             else
             {
             }
+        }
+        private void NewExecuteSearchCommand()
+        {
+            PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath,Content);
+            ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
         }
     }
 }

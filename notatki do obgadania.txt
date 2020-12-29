@@ -1,3 +1,7 @@
 wyszukiwać teksty w pliku za pomocą regexa i wyświetlać wyszukany tekst
 zaimplementowac fabryke na przeszukiwania plikow cs i xaml osobno
 lista z wyrazeniami regularnymi w postaci stringow i podstawianie tych stringow pod przeszukiwanie.
+
+listview zamiast textboxa
+	-nazwy plikow. po kliknięciu otwiera się zawartość pliku z zaznaczonymi miejscami znalezionymi przez regex
+nowa klasa ktorą będzie każdy plik z zawartością.
