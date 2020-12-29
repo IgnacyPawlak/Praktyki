@@ -9,12 +9,13 @@
         xmlns:commands="clr-namespace:Again.Commands"
         mc:Ignorable="d ignore"
         Height="auto"
-        Width="auto"
+        Width="1080"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}" Background="#FF3C3A3A">
 
     <Window.Resources>
         <ResourceDictionary>
+                <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -30,20 +31,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="315"/>
+            <ColumnDefinition Width="315"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtboxFilePath" Height="30" Margin="10,10,100,0" Text="{Binding FilePath, Mode=TwoWay}" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="chkboxSearchDown" Content="Przeszukaj podrzędne katalogi" IsChecked="{Binding IsChecked}" Foreground="White" Grid.Row="1" Grid.Column="0" FontSize="20" Height="30" Margin="10,10,10,0" VerticalAlignment="Top" Background="White"/>
-        <CheckBox x:Name="chkboxCSFile" Content="Szukaj Plików .cs" IsChecked="{Binding IsCheckedCSFile}" Foreground="White" Grid.Row="1" Grid.Column="1" FontSize="20" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Background="White" HorizontalAlignment="Left" Width="165"/>
-        <CheckBox x:Name="chkboxXMLFile" Content="Szukaj Plików .xaml" IsChecked="{Binding IsCheckedXMLFile}" Foreground="White" Grid.Row="1" Grid.Column="1" FontSize="20" Height="30" Margin="0,10,10,0" VerticalAlignment="Top" Background="White" HorizontalAlignment="Right" Width="auto" Command="{Binding ComboBoxCommand}"/>
-        <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="1" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+        <TextBox x:Name="txtboxFilePath" Height="30" Margin="10,10,100,0" Text="{Binding FilePath, Mode=TwoWay}" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="4" />
+        <CheckBox x:Name="chkboxSearchDown" Content="Przeszukaj podrzędne katalogi" IsChecked="{Binding IsCheckedSearchDown}" Foreground="White" Grid.Row="1" Grid.Column="0" FontSize="20" Height="30" Margin="10,10,10,10" VerticalAlignment="Top" Background="White"/>
+        <CheckBox x:Name="chkboxSearchForSingleFile" Content="Przeszukaj pojedynczy plik" IsChecked="{Binding IsCheckedSearchForSingleFile}" Foreground="White" Grid.Row="1" Grid.Column="1" FontSize="20" Height="30" Margin="10,10,10,10" VerticalAlignment="Top" Background="White" Command="{Binding ComboBoxCommand}"/>
+        <CheckBox x:Name="chkboxCSFile" Content="Szukaj Plików .cs" IsChecked="{Binding IsCheckedCSFile}" Foreground="White" Grid.Row="1" Grid.Column="2" FontSize="20" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Background="White" HorizontalAlignment="Left" Width="165"/>
+        <CheckBox x:Name="chkboxXMLFile" Content="Szukaj Plików .xaml" IsChecked="{Binding IsCheckedXMLFile}" Foreground="White" Grid.Row="1" Grid.Column="3" FontSize="20" Height="30" Margin="0,10,10,0" VerticalAlignment="Top" Background="White" HorizontalAlignment="Right" Width="auto" Command="{Binding ComboBoxCommand}"/>
+        <Button x:Name="btnBrowse" Command="{Binding BrowseCommand}" Height="30" Width="80" Grid.Row="0" Grid.Column="3" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Background="Black" Foreground="White" Content="Przeglądaj"/>
         <Button x:Name="btnSearch" Margin="10,10,0,10" Content="Szukaj" Command="{Binding SearchCommand}" Width="80" Grid.Row="2" HorizontalAlignment="Left"/>
-        <ContentControl  Content="{Binding Results, Source={StaticResource Locator}}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
+        <ContentControl  Content="{Binding Results, Source={StaticResource Locator}}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" />
         <again:MyTextBox Mytext="tekścik" Visibility="Hidden" Margin="142,14,141,13" Grid.Row="3">hello</again:MyTextBox>
-        <Label HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="171,10,180,10" Width="42" Grid.Row="3" Grid.Column="1">test</Label>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchCriteria}" SelectedIndex="{Binding ComboBoxSelectedIndex}" FontSize="20">
-        </ComboBox>
+        <Label HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="10,10,10,10" Width="42" Grid.Row="3" Grid.Column="1">test</Label>
+        <ComboBox x:Name="ComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchCriteria}" SelectedIndex="{Binding ComboBoxSelectedIndex}" FontSize="20" Visibility="{Binding IsCheckedXMLFile, Converter={StaticResource BoolToVisConverter}}"/>
+
     </Grid>
 </Window>

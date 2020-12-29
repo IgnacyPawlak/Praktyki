@@ -11,13 +11,7 @@ using Again.ViewModel;
 namespace Again.Model
 {
     public class Browse
-    {
-        public string searchedValue = "Wpisz szukany tekst";
-        public string filePath= @"D:\Praktyki\Again";
-        public string content;
-        public bool isChecked = false;
-        public Regex regex = new Regex("test");
-        public MatchCollection matchCollection;        
+    {      
         public string BrowseMethod()
         {
                 System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
@@ -31,6 +25,21 @@ namespace Again.Model
                     string b = "Niepoprawna ścieżka";
                     return b;
                 }
+        }
+        public string BrowseForSingleFileMethod()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if(result==DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                return filePath;
+            }
+            else
+            {
+                string filePath = @"C:\";
+                return filePath;
+            }
         }
     }
 }

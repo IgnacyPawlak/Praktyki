@@ -12,6 +12,7 @@ namespace Again.Commands
         string Content { get; set; }
         void Search();
         void SearchDown();
+        void SearchSingleFile();
         List<string> _regexValues { get; }
     }
 }

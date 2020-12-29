@@ -96,8 +96,32 @@ namespace Again.Commands
             catch (ArgumentNullException)
             {
                 throw;
+            }            
+        }
+        public void SearchSingleFile()
+        {
+            try
+            {
+                foreach (string regexValue in _regexValues)
+                {
+                    Regex newRegex = new Regex(regexValue, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
+                    MatchCollection mc = newRegex.Matches(File.ReadAllText(FilePath));
+                    if (mc.Count > 0 && !(Content.Contains(FilePath)))
+                    {
+                        foreach (var match in mc)
+                        {
+
+                            Content += /*file + "\t" + */match + "\n";
+                        }
+
+                    }
+                }
             }
-            
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

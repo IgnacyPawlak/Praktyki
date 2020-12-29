@@ -16,7 +16,8 @@ namespace Again.ViewModel
         string _searchedValue;
         static string _filePath = @"C:\";
         string _content = "";
-        bool _isChecked;
+        bool _isCheckedSearchDown;
+        bool _isCheckedSearchForSingleFile;
         bool _isCheckedCSFile;
         bool _isCheckedXMLFile;
         MatchCollection _matchCollection;
@@ -54,10 +55,15 @@ namespace Again.ViewModel
             get { return _content; }
             set {this.Set(nameof(Content), ref _content, value);}
         }
-        public bool IsChecked
+        public bool IsCheckedSearchDown
         {
-            get { return _isChecked; }
-            set { this.Set(nameof(IsChecked), ref _isChecked, value); }
+            get { return _isCheckedSearchDown; }
+            set { this.Set(nameof(IsCheckedSearchDown), ref _isCheckedSearchDown, value); }
+        }
+        public bool IsCheckedSearchForSingleFile
+        {
+            get { return _isCheckedSearchForSingleFile; }
+            set { this.Set(nameof(IsCheckedSearchForSingleFile), ref _isCheckedSearchForSingleFile, value); }
         }
         public MatchCollection InitialMatchCollection
         {
@@ -65,18 +71,33 @@ namespace Again.ViewModel
             set { this.Set(nameof(InitialMatchCollection), ref _matchCollection, value); }
         }
         public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
-        public ICommand BrowseCommand => new RelayCommand(() => { FilePath = sm.BrowseMethod();  });
+        public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
         public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
 
         public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
         public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
 
         public int ComboBoxSelectedIndex { get { return _comboBoxSelectedIndex; } set { this.Set(nameof(ComboBoxSelectedIndex), ref _comboBoxSelectedIndex, value); }} 
-
+        private void ExecuteBrowseCommand()
+        {
+            if(_isCheckedSearchForSingleFile)
+            {
+                FilePath = sm.BrowseForSingleFileMethod();
+                if(FilePath.EndsWith(".xaml"))
+                {
+                    IsCheckedXMLFile = true;
+                    ExecuteComboBoxCommand();
+                }
+            }
+            else
+            {
+                FilePath = sm.BrowseMethod();
+            }
+        }
         private void ExecuteSearchCommand()
         {
             Content = string.Empty;
-            if (_isChecked == true)
+            if (_isCheckedSearchDown == true)
             {
                 if(_isCheckedCSFile)
                 {
@@ -96,6 +117,21 @@ namespace Again.ViewModel
                     searchFile.SearchDown();
                     Content = searchFile.Content;
                 }                
+            }
+            else if(_isCheckedSearchForSingleFile)
+            {
+                if(FilePath.EndsWith(".xaml"))
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchXMLFile();
+                    searchFile.SearchSingleFile();
+                    Content = searchFile.Content;
+                }
+                else if(FilePath.EndsWith(".cs"))
+                {
+                    ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchCSFile();
+                    searchFile.SearchSingleFile();
+                    Content = searchFile.Content;
+                }
             }
             else
             {
@@ -121,11 +157,14 @@ namespace Again.ViewModel
         }
         private void ExecuteComboBoxCommand()
         {
-            if (_isCheckedXMLFile)
+            if (IsCheckedXMLFile)
             {
+                if(!SearchCriteria.Contains("Content"))
+                { 
                 SearchCriteria.Add("Content");
                 SearchCriteria.Add("Text");
-                SearchCriteria.Add("Name");                
+                SearchCriteria.Add("Name");
+                }
             }
             else
             {

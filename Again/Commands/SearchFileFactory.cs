@@ -55,5 +55,13 @@ namespace Again.Commands
             }
 
         }
+        public void SearchSingleFile()
+        {
+            foreach (var item in SearchList)
+            {
+                item.SearchSingleFile();
+                Content += item.Content;
+            }
+        }
     }
 }
