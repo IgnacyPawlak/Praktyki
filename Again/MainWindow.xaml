@@ -12,7 +12,8 @@
         Height="auto"
         Width="1080"
         Title="MVVM Light Application"
-        DataContext="{Binding Main, Source={StaticResource Locator}}" Background="#FF3C3A3A">
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Background="#FF3C3A3A"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ResourceDictionary>
