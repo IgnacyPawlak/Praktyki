@@ -13,13 +13,18 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListView Background="#FF3C3A3A" Foreground="White" ItemsSource="{Binding MyBaseViewModel.ListOfFiles}" SelectedIndex="{Binding ListViewSelectedIndex}" SelectedItem="{Binding MyBaseViewModel.ListViewSelectedItem}">
+        <ListView Background="#FF3C3A3A" Foreground="White" ItemsSource="{Binding MyBaseViewModel.ListOfFiles}" SelectedItem="{Binding MyBaseViewModel.ListViewSelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBox Grid.Column="1" Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Background="#FF3C3A3A" Foreground="White"/>
+            <ScrollViewer Grid.Column="1">
+                <TextBlock functions:HighlightTermBehavior.TermToBeHighlighted="{Binding MyBaseViewModel.RegexValues}" functions:HighlightTermBehavior.Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Foreground="White"/>
+            </ScrollViewer>
+            
+            <!--<TextBlock Grid.Column="1" Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Background="#FF3C3A3A" Foreground="White"/>-->
+        
     </Grid>
 </UserControl>

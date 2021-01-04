@@ -55,9 +55,12 @@ namespace Again.ViewModel
         public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);} }
 
         public List<string> SearchCriteria { get { return _searchCriteria; } set { this.Set(nameof(SearchCriteria), ref _searchCriteria, value); } }
+        public string pattern { get; } = "\".*\"";
 
         public MainViewModel()
         {
+            
+            RegexValues.Add("\".*\"");
             RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
             RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
             RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");

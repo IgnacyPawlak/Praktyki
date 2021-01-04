@@ -14,7 +14,7 @@
                     <RowDefinition Height="{StaticResource GridRowActionHeight}"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid>
+                <Grid> test
                     <TextBlock Style="{StaticResource NameStyle}" Text="Data Universe"/>
                 </Grid>
             </Grid>

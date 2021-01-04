@@ -62,6 +62,7 @@
     <Compile Include="Commands\SearchXMLFile.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Functions\Files.cs" />
+    <Compile Include="Functions\HighlightTermBehavior.cs" />
     <Compile Include="Functions\PopulateListOfFiles.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
