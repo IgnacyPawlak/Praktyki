@@ -23,6 +23,7 @@ namespace Again.Views
         public ResultsView()
         {
             InitializeComponent();
+            
         }
     }
 }

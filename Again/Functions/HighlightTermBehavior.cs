@@ -29,15 +29,18 @@ namespace Again.Functions
         {
             return (List<string>)frameworkElement.GetValue(TermToBeHighlightedProperty);
         }
+
         public static void SetTermToBeHighlighted (FrameworkElement frameworkElement, string value)
         {
             frameworkElement.SetValue(TermToBeHighlightedProperty, value);
         }
+
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is TextBlock textBlock)
                 SetTextBlockTextAndHighlightTerm(textBlock, GetText(textBlock), GetTermToBeHighlighted(textBlock));
         }
+
         private static void SetTextBlockTextAndHighlightTerm(TextBlock textBlock, string text, List<string> termToBeHighlighted)
         {
             textBlock.Text = string.Empty;
@@ -51,57 +54,72 @@ namespace Again.Functions
                     return;
                 }
             }
-
-            List<string> textParts = SplitTextIntoTermAndNotTermParts(text, termToBeHighlighted);
-            //foreach (var textPart in textParts)
-            //{
-            //    AddPartToTextBlockAndHighlightIfNecessarry(textBlock, termToBeHighlighted, textPart);
-            //}
-            AddPartToTextBlockAndHighlightIfNecessarry(textBlock, textParts);
+            AddPartToTextBlockAndHighlightIfNecessarry(textBlock, termToBeHighlighted, text);
         }
 
-        private static void AddPartToTextBlockAndHighlightIfNecessarry(TextBlock textBlock, List<string> termToBeHighlighted/*, string textPart*/)
+        private static void AddPartToTextBlockAndHighlightIfNecessarry(TextBlock textBlock, List<string> termToBeHighlighted, string textPart)
         {
+            List<string> FoundRegexMatches = new List<string>();
             for (int i = 0; i < termToBeHighlighted.Count; i++)
             {
-                if (i % 2 == 0)
-                    AddPartToTextBlock(textBlock, termToBeHighlighted[i]);
-                else
-                    AddHighlightedPartToTextBlock(textBlock, termToBeHighlighted[i]);
-
-
+                List<string> textParts = SplitTextIntoTermAndNotTermParts(textPart, termToBeHighlighted[i]);                
+                for (int j = 0; j < textParts.Count; j++)
+                {
+                    Regex regex = new Regex(termToBeHighlighted[i]);
+                    if(regex.Match(textParts[i])==null)
+                    {
+                        if (j % 2 == 0)
+                        {
+                            FoundRegexMatches.Add(textParts[j]);
+                        }
+                    }
+                    else
+                    {
+                        if (j % 2 != 0)
+                        {
+                            FoundRegexMatches.Add(textParts[j]);
+                        }
+                    }                    
+                }
             }
-            //foreach (var item in termToBeHighlighted)
-            //{
-            //    Regex regex = new Regex(item);
-            //    MatchCollection mc = regex.Matches(textPart);
-            //    if (mc.Count > 0)
-            //        AddHighlightedPartToTextBlock(textBlock, textPart);
-            //    else
-            //        AddPartToTextBlock(textBlock, textPart);
-            //}
-            
+            List<string> test = textPart.Split(FoundRegexMatches.ToArray(), StringSplitOptions.None).ToList();
+            for (int i = 0; i < test.Count; i++)
+            {
+                AddPartToTextBlock(textBlock, test[i]);
+                if(i<test.Count-1)
+                {
+                    try
+                    {
+                        AddHighlightedPartToTextBlock(textBlock, FoundRegexMatches[i]);
+
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        public static List<string> SplitTextIntoTermAndNotTermParts(string text, string term)
+        {
+            if (String.IsNullOrEmpty(text))
+                return new List<string>() { string.Empty };
+            List<string> parts = new List<string>();
+                List<string> temp = Regex.Split(text, $@"({term})").Where(p => p != string.Empty).ToList();
+                if (temp.Count>1)
+                {
+                    foreach (var part in temp)
+                    {
+                        parts.Add(part);
+                    }
+                }
+            return parts;
         }
 
         private static void AddHighlightedPartToTextBlock(TextBlock textBlock, string part)
         {
             textBlock.Inlines.Add(new Run { Text = part, FontWeight = FontWeights.Bold ,Background = Brushes.Yellow , Foreground = Brushes.Black});
-        }
-
-        public static List<string> SplitTextIntoTermAndNotTermParts(string text, List<string> term)
-        {
-            if (String.IsNullOrEmpty(text))
-                return new List<string>() { string.Empty };
-            List<string> parts = new List<string>();
-            foreach (var item in term)
-            {
-                if(Regex.Split(text, $@"({item})").Where(p => p != string.Empty).ToList().Count>1)
-                foreach (var part in Regex.Split(text, $@"({item})").Where(p => p != string.Empty).ToList())
-                {
-                    parts.Add(part);
-                }                
-            }
-            return parts;
         }
 
         private static void AddPartToTextBlock(TextBlock textBlock, string part)

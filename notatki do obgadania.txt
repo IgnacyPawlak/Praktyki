@@ -5,3 +5,7 @@ lista z wyrazeniami regularnymi w postaci stringow i podstawianie tych stringow 
 listview zamiast textboxa
 	-nazwy plikow. po kliknięciu otwiera się zawartość pliku z zaznaczonymi miejscami znalezionymi przez regex
 nowa klasa ktorą będzie każdy plik z zawartością.
+
+zeby to dzialalo na jednym pliku musze cos porobic z listą wyszukiwanych wyrazen
+dodatkowo z prawej strony programu zrobic liste wszystkich wyszukanych wyrazen w danym dokumencie
+z nawigacją do danego wyrażenia w jego pełnym widoku.(select kontrolki)

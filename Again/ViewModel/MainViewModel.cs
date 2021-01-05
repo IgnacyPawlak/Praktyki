@@ -14,10 +14,6 @@ namespace Again.ViewModel
     {
         private Browse sm = new Browse();
 
-        private ViewModelBase _selectedViewModel;
-
-        string _searchedValue;
-
         static string _filePath = @"D:\Praktyki\repo\Again";
 
         string _content = "";
@@ -32,8 +28,6 @@ namespace Again.ViewModel
 
         bool _searchButtonClicked;
 
-        MatchCollection _matchCollection;
-
         private List<string> _regexValues = new List<string>();
 
         int _comboBoxSelectedIndex = 0;
@@ -46,6 +40,8 @@ namespace Again.ViewModel
 
         Files _listViewSelectedItem;
 
+        List<string> _foundRegexMatches = new List<string>();
+
         public bool SearchButtonClicked { get { return _searchButtonClicked; } set { this.Set(nameof(SearchButtonClicked), ref _searchButtonClicked, value); } }
 
         public Files ListViewSelectedItem { get { return _listViewSelectedItem; } set { this.Set(nameof(ListViewSelectedItem), ref _listViewSelectedItem, value); } }
@@ -55,28 +51,10 @@ namespace Again.ViewModel
         public List<string> RegexValues { get { return _regexValues; } private set { this.Set(nameof(RegexValues), ref _regexValues, value);} }
 
         public List<string> SearchCriteria { get { return _searchCriteria; } set { this.Set(nameof(SearchCriteria), ref _searchCriteria, value); } }
+
+        public List<string> FoundRegexMatches { get { return _foundRegexMatches; } set { this.Set(nameof(FoundRegexMatches), ref _foundRegexMatches, value); } }
+
         public string pattern { get; } = "\".*\"";
-
-        public MainViewModel()
-        {
-            
-            RegexValues.Add("\".*\"");
-            RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
-            RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
-            RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");
-        }
-
-        public ViewModelBase SelectedViewModel
-        {
-            get { return _selectedViewModel; }
-            set { this.Set(nameof(SelectedViewModel), ref _selectedViewModel, value); }
-        }
-
-        public string SearchedValue
-        {
-            get { return _searchedValue; }
-            set { this.Set(nameof(SearchedValue), ref _searchedValue, value); }
-        }
 
         public string FilePath
         {
@@ -100,12 +78,6 @@ namespace Again.ViewModel
         {
             get { return _isCheckedSearchForSingleFile; }
             set { this.Set(nameof(IsCheckedSearchForSingleFile), ref _isCheckedSearchForSingleFile, value); }
-        }
-
-        public MatchCollection InitialMatchCollection
-        {
-            get { return _matchCollection; }
-            set { this.Set(nameof(InitialMatchCollection), ref _matchCollection, value); }
         }
 
         public bool IsCheckedCSFile { get { return _isCheckedCSFile; } set { this.Set(nameof(IsCheckedCSFile), ref _isCheckedCSFile, value); } }
@@ -149,21 +121,21 @@ namespace Again.ViewModel
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchCSFile();
                     searchFile.SearchDown();
-                    ListOfFiles = populateListOfFiles.PopulateListOfCSFilesFunction();
+                    ListOfFiles = populateListOfFiles.PopulateListOfCSFilesDownFunction();
                     Content = searchFile.Content;
                 }
                 else if(_isCheckedXMLFile)
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString()).CreateSearchXMLFile();
                     searchFile.SearchDown();
-                    ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
+                    ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesDownFunction();
                     Content = searchFile.Content;
                 }
                 else
                 {
                     ISearchFile searchFile = new SearchFileFactory(_filePath, _content, RegexValues[_comboBoxSelectedIndex].ToString());
                     searchFile.SearchDown();
-                    ListOfFiles = populateListOfFiles.PopulateListOfFilesFunction();
+                    ListOfFiles = populateListOfFiles.PopulateListOfFilesDownFunction();
                     Content = searchFile.Content;
                 }                
             }
@@ -230,6 +202,15 @@ namespace Again.ViewModel
             PopulateListOfFiles populateListOfFiles = new PopulateListOfFiles(FilePath);
             ListOfFiles = populateListOfFiles.PopulateListOfXAMLFilesFunction();
             SearchButtonClicked = true;
+        }
+
+        public MainViewModel()
+        {
+            
+            RegexValues.Add("\".*\"");
+            RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
+            RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
+            RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");            
         }
     }
 }

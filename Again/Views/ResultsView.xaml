@@ -12,6 +12,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListView Background="#FF3C3A3A" Foreground="White" ItemsSource="{Binding MyBaseViewModel.ListOfFiles}" SelectedItem="{Binding MyBaseViewModel.ListViewSelectedItem}">
             <ListView.ItemTemplate>
@@ -20,11 +21,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-            <ScrollViewer Grid.Column="1">
-                <TextBlock functions:HighlightTermBehavior.TermToBeHighlighted="{Binding MyBaseViewModel.RegexValues}" functions:HighlightTermBehavior.Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Foreground="White"/>
-            </ScrollViewer>
-            
-            <!--<TextBlock Grid.Column="1" Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Background="#FF3C3A3A" Foreground="White"/>-->
-        
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <TextBlock  Grid.Column="1" functions:HighlightTermBehavior.TermToBeHighlighted="{Binding MyBaseViewModel.RegexValues}" functions:HighlightTermBehavior.Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" Foreground="White" TextWrapping="Wrap"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>

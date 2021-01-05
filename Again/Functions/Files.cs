@@ -14,9 +14,11 @@ namespace Again.Functions
             string[] subs = filePath.Split('\\');
             Name = subs.Last();
             Content = content;
+            FilePath = filePath;
         }
         public string Name { get; set; }
         public string Content { get; set; }
+        public string FilePath { get; set; }
         public void ColorText()
         {
             List<string> regexValues = new List<string>();
