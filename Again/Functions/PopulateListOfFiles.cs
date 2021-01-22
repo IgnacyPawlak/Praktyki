@@ -19,7 +19,6 @@ namespace Again.Functions
         public List<Files> PopulateListOfXAMLFilesFunction()
         {
             var filteredFiles = Directory.EnumerateFiles(FilePath).Where(file => file.EndsWith(".xaml")).ToList();
-            //List<Files> populatedListOfFiles = new List<Files>();
             foreach (var item in filteredFiles)
             {
                 Files files = new Files(item, File.ReadAllText(item));

@@ -44,7 +44,9 @@ namespace Again.ViewModel
 
         public bool SearchButtonClicked { get { return _searchButtonClicked; } set { this.Set(nameof(SearchButtonClicked), ref _searchButtonClicked, value); } }
 
-        public Files ListViewSelectedItem { get { return _listViewSelectedItem; } set { this.Set(nameof(ListViewSelectedItem), ref _listViewSelectedItem, value); } }
+        public Files ListViewSelectedItem { get { return _listViewSelectedItem; } set { if (this.Set(nameof(ListViewSelectedItem), ref _listViewSelectedItem, value))
+                    RaisePropertyChanged("ListOFTerms");
+            } }
 
         public List<Files> ListOfFiles { get { return _listOfFiles; } private set { this.Set(nameof(ListOfFiles), ref _listOfFiles, value); } }
 
@@ -87,6 +89,36 @@ namespace Again.ViewModel
         public int ComboBoxSelectedIndex { get { return _comboBoxSelectedIndex; } set { this.Set(nameof(ComboBoxSelectedIndex), ref _comboBoxSelectedIndex, value); } } 
 
         public int ListViewSelectedIndex { get { return _listViewSelectedIndex; } set { this.Set(nameof(ListViewSelectedIndex), ref _listViewSelectedIndex, value); } }
+
+        public List<string> ListOFTerms
+        {
+            get
+            {
+                return GetListOfTerms();
+            }
+        }
+
+        private List<string> GetListOfTerms()
+        {
+            if(ListViewSelectedItem==null)
+            {
+                return new List<string>();
+            }else
+            {
+                List<string> temp = new List<string>();
+                foreach (var value in RegexValues)
+                {
+                    Regex regex = new Regex(value);
+                    MatchCollection mc = regex.Matches(ListViewSelectedItem.Content);
+                    foreach (var item in mc)
+                    {
+                        temp.Add(item.ToString());
+                    }
+                }
+                return temp;
+            }
+            
+        }
 
         public ICommand SearchCommand => new RelayCommand(() => ExecuteSearchCommand());
 

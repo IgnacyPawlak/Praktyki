@@ -11,12 +11,17 @@
     
     <Application.Resources>
         <!--Global View Model Locator-->
+        <ResourceDictionary>
         <vm:ViewModelLocator x:Key="Locator"
                              d:IsDataSource="True" />
         <DataTemplate DataType="{x:Type vm:ResultsViewModel}">
             <views:ResultsView/>
         </DataTemplate>
-        
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
     
 </Application>

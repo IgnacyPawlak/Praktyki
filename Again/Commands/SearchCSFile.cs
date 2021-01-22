@@ -32,7 +32,6 @@ namespace Again.Commands
             // dopasowuje tylko jedno wyrażenie w "" w linii
             string pattern = @"""[\w\s\.]+""";
             _regexValues.Add(pattern);
-            //_regexValues.Add("([^\"]*)");
         }
 
         public void SearchDown()

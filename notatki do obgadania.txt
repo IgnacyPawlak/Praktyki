@@ -9,3 +9,6 @@ nowa klasa ktorą będzie każdy plik z zawartością.
 zeby to dzialalo na jednym pliku musze cos porobic z listą wyszukiwanych wyrazen
 dodatkowo z prawej strony programu zrobic liste wszystkich wyszukanych wyrazen w danym dokumencie
 z nawigacją do danego wyrażenia w jego pełnym widoku.(select kontrolki)
+
+podkreślić wybrany text na czerwono. dodać strałkę z boku. scroll zjeżdża do miejsca.
+liczenie textu może tag w Runie. kto wie.
