@@ -41,6 +41,7 @@ namespace Again.ViewModel
             MainViewModel mvm = new MainViewModel();
             SimpleIoc.Default.Register<MainViewModel>(()=> mvm);
             SimpleIoc.Default.Register<ResultsViewModel>(()=>new ResultsViewModel(mvm));
+            SimpleIoc.Default.Register<SettingsViewModel>(() => new SettingsViewModel());
         }
 
         /// <summary>
@@ -61,6 +62,14 @@ namespace Again.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ResultsViewModel>();
+            }
+        }
+
+        public SettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
             }
         }
 

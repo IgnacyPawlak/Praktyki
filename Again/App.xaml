@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type vm:ResultsViewModel}">
             <views:ResultsView/>
         </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+                <views:SettingsView/>
+            </DataTemplate>
             <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />

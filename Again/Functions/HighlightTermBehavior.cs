@@ -147,7 +147,7 @@ namespace Again.Functions
                         }
 
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         throw;
                     }

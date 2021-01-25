@@ -28,6 +28,8 @@ namespace Again.ViewModel
 
         bool _searchButtonClicked;
 
+        bool _settingsClicked;
+
         private List<string> _regexValues = new List<string>();
 
         int _comboBoxSelectedIndex = 0;
@@ -86,6 +88,8 @@ namespace Again.ViewModel
 
         public bool IsCheckedXMLFile { get { return _isCheckedXMLFile; } set { this.Set(nameof(IsCheckedXMLFile), ref _isCheckedXMLFile, value); } }
 
+        public bool SettingsClicked { get { return _settingsClicked; } set { this.Set(nameof(SettingsClicked), ref _settingsClicked, value); } }
+
         public int ComboBoxSelectedIndex { get { return _comboBoxSelectedIndex; } set { this.Set(nameof(ComboBoxSelectedIndex), ref _comboBoxSelectedIndex, value); } } 
 
         public int ListViewSelectedIndex { get { return _listViewSelectedIndex; } set { this.Set(nameof(ListViewSelectedIndex), ref _listViewSelectedIndex, value); } }
@@ -125,6 +129,10 @@ namespace Again.ViewModel
         public ICommand BrowseCommand => new RelayCommand(() => { ExecuteBrowseCommand();  });
 
         public ICommand ComboBoxCommand => new RelayCommand(() => ExecuteComboBoxCommand());
+
+        public ICommand SettingsClickedCommand => new RelayCommand(() => SettingsClicked = true);
+
+        public ICommand SearchClickedCommand => new RelayCommand(() => SettingsClicked = false);
 
         private void ExecuteBrowseCommand()
         {
@@ -238,11 +246,8 @@ namespace Again.ViewModel
 
         public MainViewModel()
         {
-            
-            RegexValues.Add("\".*\"");
-            RegexValues.Add("(?<=Content=\")(?!{Binding)[^\"]+");
-            RegexValues.Add("(?<=Text=\")(?!{Binding)[^\"]+");
-            RegexValues.Add("(?<=Name=\")(?!{Binding)[^\"]+");            
+            SettingsClicked=false;
+            RegexValues.Add("\".*\"");          
         }
     }
 }

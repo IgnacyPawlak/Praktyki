@@ -12,7 +12,7 @@
          <Members>
           <Member Name="#TextChanged" Kind="Event" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Status="Active" Created="2021-01-25 08:36:18Z" FixCategory="Breaking">
+            <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Status="Active" Created="2021-01-25 10:02:23Z" FixCategory="Breaking">
              <Issue Name="Second" Certainty="95" Level="Error" Path="D:\Praktyki\repo\Again\Functions" File="HighlightTermBehavior.cs" Line="69">Declare the second parameter of 'TextChangedEventHandler' as an EventArgs, or an instance of a type that extends EventArgs, named 'e'.</Issue>
             </Message>
            </Messages>

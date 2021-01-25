@@ -64,3 +64,5 @@ D:\Praktyki\repo\Again\obj\Debug\Again.csproj.GenerateResource.cache
 D:\Praktyki\repo\Again\obj\Debug\Again.csproj.CoreCompileInputs.cache
 D:\Praktyki\repo\Again\obj\Debug\Again.csproj.CopyComplete
 D:\Praktyki\repo\Again\obj\Debug\Again.csprojAssemblyReference.cache
+D:\Praktyki\repo\Again\obj\Debug\Views\SettingsView.g.cs
+D:\Praktyki\repo\Again\obj\Debug\Views\SettingsView.baml

@@ -10,11 +10,11 @@ none
 false
 CODE_ANALYSIS;DEBUG;TRACE
 D:\Praktyki\repo\Again\App.xaml
-4-1678651512
+5-141301158
 
-29-1732694007
+31731162611
 691075214563
-MainWindow.xaml;Skins\MainSkin.xaml;UserControl1.xaml;Views\ResultsView.xaml;
+MainWindow.xaml;Skins\MainSkin.xaml;UserControl1.xaml;Views\ResultsView.xaml;Views\SettingsView.xaml;
 
 True
 
