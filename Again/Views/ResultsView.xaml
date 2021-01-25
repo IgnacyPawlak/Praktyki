@@ -31,8 +31,20 @@
             <TextBlock x:Name="textBox" Grid.Column="1" functions:HighlightTermBehavior.TermToBeHighlighted="{Binding MyBaseViewModel.RegexValues}"     functions:HighlightTermBehavior.Text="{Binding MyBaseViewModel.ListViewSelectedItem.Content}" 
                        functions:HighlightTermBehavior.TermIndex ="{Binding SelectedTerm}" functions:HighlightTermBehavior.ListOfTerms="{Binding MyBaseViewModel.ListOFTerms}"  Foreground="White" functions:HighlightTermBehavior.TextChanged="TextBox_TextChanged"/>
         </ScrollViewer>
-        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="listView" ItemsSource="{Binding MyBaseViewModel.ListOFTerms}" SelectedIndex="{Binding SelectedTerm}"/>
-        </ScrollViewer>
+        <StackPanel Grid.Column="2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListView x:Name="listView" ItemsSource="{Binding MyBaseViewModel.ListOFTerms}" SelectedIndex="{Binding SelectedTerm}" Margin="0,0,0,10" Height="430">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <CheckBox/>
+                                <TextBlock Text="{Binding}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>         
+                </ListView>
+            </ScrollViewer>
+            <Button Command="{Binding MyBaseViewModel.AddSelectedToDictionary}" Content="Dodaj wybrane do słownika"/>
+        </StackPanel>
     </Grid>
 </UserControl>

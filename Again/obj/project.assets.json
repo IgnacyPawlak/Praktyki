@@ -248,7 +248,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ziom5\\.nuget\\packages\\": {}
+    "C:\\Users\\ignac\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -256,12 +256,12 @@
       "projectUniqueName": "D:\\Praktyki\\repo\\Again\\Again.csproj",
       "projectName": "Again",
       "projectPath": "D:\\Praktyki\\repo\\Again\\Again.csproj",
-      "packagesPath": "C:\\Users\\ziom5\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\ignac\\.nuget\\packages\\",
       "outputPath": "D:\\Praktyki\\repo\\Again\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\ziom5\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ignac\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
