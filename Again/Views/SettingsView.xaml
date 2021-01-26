@@ -5,8 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Again.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800" Background="Gray"
+             DataContext="{Binding Settings, Source={StaticResource Locator}}">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label Content="Miejsce zapisu ustawień:"/>
+            <TextBox Grid.ColumnSpan="2" Text="{Binding SavePath}"/>
+        </StackPanel>
+        <Button Grid.Column="2" Content="Przeglądaj" Command="{Binding BrowseCommand}"/>
+        <WrapPanel Grid.Row="1">
+            <Label  Content="Format zapisu: "/>
+            <ComboBox Width="50" SelectedValue="{Binding SelectedValue}">
+                <ComboBoxItem Content="xml"/>
+                <ComboBoxItem Content="json"/>
+                <ComboBoxItem Content="resx"/>
+            </ComboBox>
+        </WrapPanel>
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedValueShort}"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Zapisz ustawienia" Command="{Binding SaveSettingsCommand}"/>
     </Grid>
 </UserControl>
